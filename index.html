@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My first three.js app</title>
+        <link rel="stylesheet" href="./styles.css">
+        <script type="importmap">
+        {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.178.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.178.0/examples/jsm/"
+            }
+        }
+        </script>
+    </head>
+    <body>
+        <div>
+            <button data-model="tree">Tree</button>
+            <button data-model="spawner">Spawner</button>
+            <button id="start-btn">Start!</button>
+
+            <p id="hp" style="float: right; padding-right: 3px;">0</p>
+        </div>
+        <script type="module" src="./main.js"></script>
+    </body>
+</html>
+    
