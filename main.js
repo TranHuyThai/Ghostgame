@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { launchEditorMode, stopEditorMode } from './terrainEditor/editorSetup.js';
-import { setUpEventListeners, handleMovement } from './game/movement.js';
-import { spawnZombies, stopSpawnZombies, spawnZombiesInterval, updateZombies } from './game/zombie.js';
-import { displayClickables, shootclick, checkWin } from './game/combat.js';
-import { initWorld } from './game/world.js';
+import { launchEditorMode, stopEditorMode } from './public/js/survival/terrainEditor/editorSetup.js';
+import { setUpEventListeners, handleMovement } from './public/js/survival/movement.js';
+import { spawnZombies, stopSpawnZombies, spawnZombiesInterval, updateZombies } from './public/js/survival/zombie.js';
+import { displayClickables, shootclick, checkWin } from './public/js/survival/combat.js';
+import { initWorld } from './public/js/survival/world.js';
 
 export let scene, camera, renderer, plane, axes, controls, clock;
 
@@ -30,7 +30,7 @@ function setup() {
     
     // Load texture
     const textureLoader = new THREE.TextureLoader();
-    const grassTexture = textureLoader.load('./assets/ground.jpg');
+    const grassTexture = textureLoader.load('./public/assets/survival/ground.jpg');
 
     // Setting up plane
     const geometry = new THREE.PlaneGeometry(5, 5);

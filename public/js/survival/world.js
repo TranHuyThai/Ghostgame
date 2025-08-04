@@ -1,5 +1,5 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { scene} from '../main.js';
+import { scene} from '../../../main.js';
 
 // Set up loader for 3D models
 const GLTFloader = new GLTFLoader();
@@ -154,7 +154,7 @@ function loadModel(point, selectedModel) {
         clone.userData.tag = selectedModel;
         scene.add(clone);
     } else {
-        GLTFloader.load(`./assets/${selectedModel}.glb`, function (gltf) {
+        GLTFloader.load(`./public/assets/survival/${selectedModel}.glb`, function (gltf) {
             const baseModel = gltf.scene;
             modelCache[selectedModel] = baseModel;
 
