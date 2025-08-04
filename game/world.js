@@ -6,7 +6,7 @@ const GLTFloader = new GLTFLoader();
 
 
 const objects = {
-    spawners: [
+    spawner: [
     {
         "x": -1.3607540987747817,
         "y": 3.8075238715657935e-16,
@@ -23,7 +23,7 @@ const objects = {
         "z": -1.541518933833367
     }
 ],
-    trees: [
+    tree: [
     {
         "x": -1.081478651316902,
         "y": -1.4029002885458686e-15,
