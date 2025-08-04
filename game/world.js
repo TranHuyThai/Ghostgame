@@ -4,7 +4,9 @@ import { scene} from '../main.js';
 // Set up loader for 3D models
 const GLTFloader = new GLTFLoader();
 
-const spawners = [
+
+const objects = {
+    spawners: [
     {
         "x": -1.3607540987747817,
         "y": 3.8075238715657935e-16,
@@ -20,9 +22,8 @@ const spawners = [
         "y": 3.4228596264748546e-16,
         "z": -1.541518933833367
     }
-]
-
-const trees = [
+],
+    trees: [
     {
         "x": -1.081478651316902,
         "y": -1.4029002885458686e-15,
@@ -139,7 +140,7 @@ const trees = [
         "z": 2.417233725242167
     }
 ]
-
+}
 const modelCache = {};
 const modelScales = {
     tree: 0.1,
@@ -167,11 +168,9 @@ function loadModel(point, selectedModel) {
 }
 
 export function initWorld() {
-    for (const point of spawners) {
-        loadModel(point, "spawner");
-    }
-
-    for (const point of trees) {
-        loadModel(point, "tree");
+    for (const [key, points] of Object.entries(objects)) {
+        points.forEach(point => {
+            loadModel(point, key);
+        });
     }
 }

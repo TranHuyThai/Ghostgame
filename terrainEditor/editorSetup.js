@@ -23,19 +23,18 @@ const modelScales = {
 };
 
 const modelCache = {};  // Store loaded base models
-const spawnerPoints = [];
-const treePoints = [];
+const objects = {}
 function loadModel(point) {
-    if (selectedModel === "tree"){
-        treePoints.push(point);
+    if (selectedModel === null) {
+        console.warn("No model selected");
+        return;
     }
-    if (selectedModel === "spawner"){
-        spawnerPoints.push(point);
+    if (!(selectedModel in objects)) {
+        objects[selectedModel] = [];
     }
-    console.log(`Spawners placed`)
-    console.log(spawnerPoints)
-    console.log(`Trees placed`)
-    console.log(treePoints)
+    objects[selectedModel].push(point);
+    console.log(`Objects placed`)
+    console.log(objects)
     if (modelCache[selectedModel]) {
         const clone = modelCache[selectedModel].clone(true);
         clone.scale.setScalar(modelScales[selectedModel] || 0.05);
