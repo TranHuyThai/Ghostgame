@@ -4,7 +4,7 @@ import { launchEditorMode, stopEditorMode } from './terrainEditor/editorSetup.js
 import { setUpEventListeners, handleMovement } from './game/movement.js';
 import { spawnZombies, stopSpawnZombies, spawnZombiesInterval, updateZombies } from './game/zombie.js';
 import { displayClickables, shootclick, checkWin } from './game/combat.js';
-
+import { initWorld } from './game/world.js';
 
 export let scene, camera, renderer, plane, axes, controls, clock;
 
@@ -82,7 +82,7 @@ function gameSetup(){
     axes = null;
     controls.dispose();
     controls = null;
-
+    initWorld(); // Initialize the world with models
     // Fix camera positions
     camera.position.set(0, 1.6, 3);
     camera.lookAt(0, 1.6, 0);
