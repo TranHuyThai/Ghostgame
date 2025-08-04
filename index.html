@@ -16,10 +16,19 @@
     <body>
         <div>
             <button data-model="tree">Tree</button>
+            <button data-model="plant">Plant</button>
             <button data-model="spawner">Spawner</button>
+            <button data-model="healthpot">Health Potion</button>
             <button id="start-btn">Start!</button>
 
-            <p id="hp" style="float: right; padding-right: 3px;">0</p>
+            <p id="hp" style="float: right; padding-right: 5px;">20</p>
+            <p style="float: right; padding-right: 3px;">HP:</p>
+
+            <p id="ghostkilled" style="float: right; padding-right: 10px;">0</p>
+            <p style="float: right; padding-right: 3px;">Ghost Killed:</p>
+
+            <p id="status" style="float: right; padding-right: 100px;">ALIVE</p>
+            <p style="float: right; padding-right: 3px;">Status:</p>
         </div>
         <script type="module" src="/public/js/survival/main.js"></script>
     </body>

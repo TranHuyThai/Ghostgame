@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { scene, camera } from './main.js';
-import { clickableObjects, removeClickableObject } from './zombie.js';
+import { stopSpawnZombies, clickableObjects, removeClickableObject, zombies, boss, getSpawnersLoc, killBoss } from './zombie.js';
+
 
 
 // Set up raycaster and mouse vector
@@ -12,12 +13,36 @@ export function displayClickables(){
     console.log(clickableObjects);
 }
 
-export function checkWin(){
-     if (clickableObjects.length === 0) {
-        console.log('Game Complete! All objects clicked!');
-        const hp = document.getElementById("hp");
-        hp.textContent = "COMPLETED!!"
+
+export function win(){
+    const status = document.getElementById("status");
+    status.textContent = "WIN!";
+    stopSpawnZombies();
+}
+
+export function checkDie(){
+    const hp = document.getElementById("hp");
+    let currentHP = parseInt(hp.textContent);
+    if (currentHP <= 0){
+        const status = document.getElementById("status");
+        status.textContent = "DIED!";
+        stopSpawnZombies();
+        killBoss();
     }
+}
+
+
+function updateKillCounter(){
+    const counter = document.getElementById("ghostkilled");
+    counter.textContent ++; 
+}
+
+
+export function updatehealth(value){
+    const hp = document.getElementById("hp");
+    let currentHP = parseInt(hp.textContent);
+    currentHP += value;
+    hp.textContent = currentHP;
 }
 
 
@@ -42,6 +67,33 @@ export function shoot(event) {
     createClickDot(clickX, clickY);
     
     raycaster.setFromCamera(mouse, camera);
+
+    if (boss) {
+        const bossIntersects = raycaster.intersectObject(boss, true);
+        if (bossIntersects.length > 0) {
+            console.log('Boss hit!');
+            boss.userData.hp -= 1;
+            console.log(`Boss HP remaining: ${boss.userData.hp}`);
+            
+            if (boss.userData.hp <= 0) {
+                // Boss defeated
+                console.log("Boss defeated!");
+                scene.remove(boss);
+                killBoss();
+                updateKillCounter(); // Count boss as a kill
+                win();
+            } else {
+                // Boss still alive, teleport it away
+                const arr = getSpawnersLoc();
+                if (arr.length > 0) {
+                    const randomSpawnerPoint = arr[Math.floor(Math.random() * arr.length)];
+                    boss.position.copy(randomSpawnerPoint);
+                    console.log("Boss hit but still alive, teleported away");
+                }
+            }
+            return; // Exit early, boss was hit
+        }
+    }
 
     const intersects = raycaster.intersectObjects(clickableObjects, true);
     console.log('Intersects found:', intersects.length);
@@ -68,13 +120,22 @@ export function shoot(event) {
                 current = current.parent;
             }
         }
-
-        
         // Remove from scene
         scene.remove(targetObject);
+
+        if (targetObject.userData.tag === 'ghost') {
+            const zombieIndex = zombies.findIndex(z => z.uuid === targetObject.uuid);
+            if (zombieIndex > -1) {
+                zombies.splice(zombieIndex, 1);
+                console.log('Zombie removed from zombies array');
+            }
+        }
         
         // Remove from clickable objects list
         removeClickableObject(targetObject);
+
+        // Increment counter
+        updateKillCounter();
         
         console.log('Object removed. Remaining clickable objects:', clickableObjects.length);
     }
@@ -103,6 +164,8 @@ function createClickDot(x, y) {
         }
     }, 1000);
 }
+
+
 export function shootclick(){
     window.addEventListener("click", shoot);
 }

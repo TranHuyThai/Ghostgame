@@ -2,9 +2,10 @@ import * as THREE from 'three';
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { launchEditorMode, stopEditorMode } from './terrainEditor/editorSetup.js';
 import { setUpEventListeners, handleMovement } from './movement.js';
-import { spawnZombies, stopSpawnZombies, spawnZombiesInterval, updateZombies } from './zombie.js';
-import { displayClickables, shootclick, checkWin } from './combat.js';
+import { spawnZombies, stopSpawnZombies, spawnZombiesInterval, updateZombies, spawnBossZombie } from './zombie.js';
+import { shootclick, checkDie } from './combat.js';
 import { initWorld } from './world.js';
+import { checkHealthPotionCollisions } from './health.js';
 
 export let scene, camera, renderer, plane, axes, controls, clock;
 
@@ -64,8 +65,9 @@ function animate() {
         // Game logic and movement starts here
         handleMovement(camera, clock)
         updateZombies();
-        //displayClickables();
-        checkWin();
+        spawnBossZombie();
+        checkHealthPotionCollisions();
+        checkDie();
     }
 
 
@@ -100,7 +102,7 @@ startBtn.onclick = () => {
     console.log("Game started, editorMode is now", editorMode);
     // Game setup starts here
     gameSetup();
-    spawnZombies();
+    spawnZombies("ghost");
     spawnZombiesInterval(10000);
     shootclick();
 };
