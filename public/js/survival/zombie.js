@@ -1,5 +1,5 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { scene, camera } from '../../../main.js';
+import { scene, camera } from './main.js';
 
 const GLTFloader = new GLTFLoader();
 const spawners = [];

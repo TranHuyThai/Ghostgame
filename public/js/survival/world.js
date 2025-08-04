@@ -1,5 +1,5 @@
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { scene} from '../../../main.js';
+import { scene} from './main.js';
 
 // Set up loader for 3D models
 const GLTFloader = new GLTFLoader();

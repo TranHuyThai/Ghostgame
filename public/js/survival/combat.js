@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { scene, camera } from '../../../main.js';
+import { scene, camera } from './main.js';
 import { clickableObjects, removeClickableObject } from './zombie.js';
 
 

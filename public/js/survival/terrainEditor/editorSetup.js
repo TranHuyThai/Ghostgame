@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { scene, camera, plane } from '../../../../main.js';
+import { scene, camera, plane } from '../main.js';
 
 // Set up loader for 3D models
 const GLTFloader = new GLTFLoader();
